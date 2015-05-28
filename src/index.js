@@ -6,8 +6,10 @@ let KindaObject = require('kinda-object');
 let KindaLog = require('kinda-log');
 
 let KindaLogServer = KindaObject.extend('KindaLogServer', function() {
-  this.creator = function() {
-    this.log = this.create(KindaLog);
+  this.creator = function(options = {}) {
+    let log = options.log;
+    if (!KindaLog.isClassOf(log)) log = KindaLog.create(log);
+    this.log = log;
   };
 
   this.getMiddleware = function(prefix) {
@@ -25,7 +27,9 @@ let KindaLogServer = KindaObject.extend('KindaLogServer', function() {
       if (!(this.method === 'POST' && path === '/logs')) return yield next;
 
       let body = yield parseBody.json(this);
-      that.log.dispatch(body.app, body.host, body.level, body.message);
+      that.log.dispatch(
+        body.applicationName, body.hostName, body.level, body.message
+      );
       this.status = 204;
       this.logLevel = 'silence';
     };

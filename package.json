@@ -19,7 +19,6 @@
   "author": "Manuel Vila <mvila@3base.com>",
   "license": "MIT",
   "dependencies": {
-    "babel": "^5.4.7",
     "co-body": "^2.0.0",
     "kinda-log": "^0.2.0",
     "kinda-object": "^0.2.0",
