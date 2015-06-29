@@ -28,7 +28,7 @@ let KindaLogServer = KindaObject.extend('KindaLogServer', function() {
 
       let body = yield parseBody.json(this);
       that.log.dispatch(
-        body.applicationName, body.hostName, body.level, body.message
+        body.appName, body.hostName, body.level, body.message
       );
       this.status = 204;
       this.logLevel = 'silence';
